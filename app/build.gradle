@@ -1,0 +1,68 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "br.com.caiodev.walletapp"
+        minSdkVersion 16
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+
+        debug {
+
+        }
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    //AndroidX AppCompat
+    implementation "androidx.appcompat:appcompat:$appCompat"
+
+    //Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    //Layout and view section
+    implementation "androidx.constraintlayout:constraintlayout:$constraintLayout"
+    implementation "com.google.android.material:material:$materialDesign"
+
+    //Logging section
+    implementation "com.squareup.okhttp3:logging-interceptor:$loggingInterceptor"
+    implementation "com.jakewharton.timber:timber:$timber"
+
+    //Room
+//    implementation "androidx.room:room-runtime:$room"
+//    annotationProcessor "androidx.room:room-compiler:$room"
+
+    //Lifecycle section
+    implementation "androidx.lifecycle:lifecycle-viewmodel:$androidLifecycle"
+    implementation "androidx.lifecycle:lifecycle-extensions:$androidLifecycle"
+
+    //Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit"
+    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$coroutinesAdapter"
+    implementation "com.squareup.retrofit2:converter-moshi:$moshiRetrofitConverter"
+
+    //Hawk
+    implementation "com.orhanobut:hawk:$hawk"
+
+    //Test section
+    testImplementation "junit:junit:$junit"
+    androidTestImplementation "androidx.test:runner:$testRunner"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso"
+}
