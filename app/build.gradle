@@ -1,7 +1,5 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
 
 android {
@@ -14,6 +12,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
 
         debug {
@@ -21,7 +20,7 @@ android {
         }
 
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -44,10 +43,6 @@ dependencies {
     //Logging section
     implementation "com.squareup.okhttp3:logging-interceptor:$loggingInterceptor"
     implementation "com.jakewharton.timber:timber:$timber"
-
-    //Room
-//    implementation "androidx.room:room-runtime:$room"
-//    annotationProcessor "androidx.room:room-compiler:$room"
 
     //Lifecycle section
     implementation "androidx.lifecycle:lifecycle-viewmodel:$androidLifecycle"

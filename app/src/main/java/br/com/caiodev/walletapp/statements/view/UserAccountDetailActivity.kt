@@ -8,13 +8,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import br.com.caiodev.walletapp.R
+import br.com.caiodev.walletapp.extensions.setViewVisibility
 import br.com.caiodev.walletapp.login.model.LoginResponse
 import br.com.caiodev.walletapp.login.view.LoginActivity
 import br.com.caiodev.walletapp.statements.viewModel.StatementViewModel
 import br.com.caiodev.walletapp.statements.viewModel.ViewModelDataHelper
 import br.com.caiodev.walletapp.utils.HawkIds
 import br.com.caiodev.walletapp.utils.MasterActivity
-import com.orhanobut.hawk.Hawk
 import kotlinx.android.synthetic.main.activity_user_account_detail.*
 
 class UserAccountDetailActivity : MasterActivity() {
@@ -32,19 +32,7 @@ class UserAccountDetailActivity : MasterActivity() {
     }
 
     override fun setupView() {
-
         setViewVisibility(statementListProgressBar, View.VISIBLE)
-
-        getHawkValue().userAccount?.apply {
-            accountOwnerNameTextView.text = name
-            accountNumberTextView.text = bankAccount
-
-            accountBalanceTextView.text =
-                    String.format(
-                        getString(R.string.balance_placeholder), balance.toString()
-                    )
-        }
-
         accountOwnerStatementsRecyclerView.setHasFixedSize(true)
         statementListSwipeRefreshLayout.setColorSchemeResources(R.color.purple)
     }
@@ -52,6 +40,14 @@ class UserAccountDetailActivity : MasterActivity() {
     override fun setupViewModel() {
 
         viewModel = ViewModelProviders.of(this).get(StatementViewModel::class.java)
+
+        viewModel.getHawkValue<LoginResponse>(HawkIds.userLoginResponseData).userAccount?.apply {
+            accountOwnerNameTextView.text = name
+            accountNumberTextView.text = bankAccount
+
+            accountBalanceTextView.text =
+                    String.format(getString(R.string.balance_placeholder), balance.toString())
+        }
 
         logoutImageView.setOnClickListener {
             viewModel.deleteHawkValue(HawkIds.userLoginResponseData)
@@ -86,10 +82,6 @@ class UserAccountDetailActivity : MasterActivity() {
         })
     }
 
-    private fun getHawkValue(): LoginResponse {
-        return Hawk.get<LoginResponse>(HawkIds.userLoginResponseData)
-    }
-
     private fun runLayoutAnimation(recyclerView: RecyclerView) {
 
         val controller =
@@ -109,9 +101,5 @@ class UserAccountDetailActivity : MasterActivity() {
             statementListProgressBar,
             View.GONE
         )
-    }
-
-    private fun setViewVisibility(view: View, visibility: Int) {
-        view.visibility = visibility
     }
 }

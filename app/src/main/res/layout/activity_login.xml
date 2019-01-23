@@ -22,37 +22,39 @@
         android:id="@+id/userLoginEditText"
         style="@style/user_login_edit_texts"
         android:layout_width="0dp"
-        android:cursorVisible="false"
-        android:imeOptions="actionNext"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_96dp"
+        android:autofillHints="email"
+        android:cursorVisible="false"
         android:hint="@string/user_login"
+        android:imeOptions="actionNext"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logo"
-        tools:ignore="Autofill" />
+        tools:targetApi="O" />
 
     <EditText
         android:id="@+id/userPasswordEditText"
         style="@style/user_login_edit_texts"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:autofillHints="@string/user_password"
         android:hint="@string/user_password"
         android:imeOptions="actionDone"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userLoginEditText"
-        tools:ignore="Autofill" />
+        tools:targetApi="O" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/loginButton"
         style="@style/margin_88dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_32dp"
-        android:background="@drawable/white_ripple_effect"
+        android:background="@color/purple"
         android:fontFamily="@font/notosans_regular"
         android:paddingTop="@dimen/padding_12dp"
         android:paddingBottom="@dimen/padding_12dp"
@@ -62,7 +64,8 @@
         android:textSize="@dimen/text_size_18"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:rippleColor="@android:color/white" />
 
     <ProgressBar
         android:id="@+id/loginProgressBar"

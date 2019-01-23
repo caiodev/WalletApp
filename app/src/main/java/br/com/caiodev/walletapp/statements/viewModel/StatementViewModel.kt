@@ -44,9 +44,9 @@ class StatementViewModel : ViewModel() {
         }
     }
 
-    fun getStatementList(): MutableList<Statement> {
-        return statementList
-    }
+    fun getStatementList() = statementList
+
+    fun <T> getHawkValue(key: String) = Hawk.get(key) as T
 
     fun deleteHawkValue(key: String) {
         Hawk.delete(key)

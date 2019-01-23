@@ -8,36 +8,29 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
-
 class RetrofitService {
 
     val baseUrl = "https://bank-app-test.herokuapp.com/api/"
+    private val timberTag = "OkHttpLogging"
 
-    inline fun <reified T> createService(): T {
-
-        return Retrofit.Builder()
+    inline fun <reified T> createService() =
+        Retrofit.Builder()
             .baseUrl(baseUrl)
             .client(createAndDeliverHttpClient())
             .addConverterFactory(MoshiConverterFactory.create())
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
-            .build().create(T::class.java)
-    }
+            .build().create(T::class.java) as T
 
-    fun createAndDeliverHttpClient(): OkHttpClient {
-
-        val okHttpClientCreator = OkHttpClient.Builder()
-
-        val logging = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { message ->
-            Timber.tag("OkHttpLogging").d(message)
-        }).setLevel(HttpLoggingInterceptor.Level.BODY)
-
-        okHttpClientCreator.addInterceptor(logging)
-        okHttpClientCreator.connectTimeout(1L, TimeUnit.MINUTES)
-        okHttpClientCreator.readTimeout(1L, TimeUnit.MINUTES)
-        okHttpClientCreator.writeTimeout(1L, TimeUnit.MINUTES)
-
-        okHttpClientCreator.hostnameVerifier { _, _ -> true }
-
-        return okHttpClientCreator.build()
-    }
+    fun createAndDeliverHttpClient() =
+        OkHttpClient.Builder()
+            .addInterceptor(
+                HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { message ->
+                    Timber.tag(timberTag).d(message)
+                }).setLevel(HttpLoggingInterceptor.Level.BODY)
+            )
+            .connectTimeout(1L, TimeUnit.MINUTES)
+            .readTimeout(1L, TimeUnit.MINUTES)
+            .writeTimeout(1L, TimeUnit.MINUTES)
+            .hostnameVerifier { _, _ -> true }
+            .build() as OkHttpClient
 }

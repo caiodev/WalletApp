@@ -16,10 +16,6 @@ class ViewModelDataHelper : RecyclerViewDataSource<Statement> {
         return statementList.size
     }
 
-    override fun getViewType(position: Int): Int {
-        return 0
-    }
-
     override fun getItem(position: Int): Statement {
         return statementList[position]
     }

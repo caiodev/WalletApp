@@ -6,6 +6,10 @@ import android.view.View
 import android.widget.EditText
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import br.com.caiodev.walletapp.R
+import br.com.caiodev.walletapp.extensions.setViewVisibility
+import br.com.caiodev.walletapp.login.model.LoginRequest
+import br.com.caiodev.walletapp.login.model.LoginResponse
 import br.com.caiodev.walletapp.login.viewModel.LoginViewModel
 import br.com.caiodev.walletapp.statements.view.UserAccountDetailActivity
 import br.com.caiodev.walletapp.utils.HawkIds
@@ -13,9 +17,6 @@ import br.com.caiodev.walletapp.utils.MasterActivity
 import br.com.caiodev.walletapp.utils.TextValidation.validateCPF
 import br.com.caiodev.walletapp.utils.TextValidation.validateEmail
 import br.com.caiodev.walletapp.utils.TextValidation.validatePassword
-import br.com.caiodev.walletapp.R
-import br.com.caiodev.walletapp.login.model.LoginRequest
-import br.com.caiodev.walletapp.login.model.LoginResponse
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : MasterActivity() {
@@ -141,9 +142,5 @@ class LoginActivity : MasterActivity() {
 
     private fun setEditTextError(editText: EditText, errorMessage: String) {
         editText.error = errorMessage
-    }
-
-    private fun setViewVisibility(view: View, visibility: Int) {
-        view.visibility = visibility
     }
 }

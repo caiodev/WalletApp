@@ -1,7 +1,7 @@
 package br.com.caiodev.walletapp.utils
 
 import android.app.Application
-import com.orhanobut.hawk.BuildConfig
+import br.com.caiodev.walletapp.BuildConfig
 import com.orhanobut.hawk.Hawk
 import timber.log.Timber
 
