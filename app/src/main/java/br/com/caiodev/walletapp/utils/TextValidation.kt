@@ -2,8 +2,7 @@ package br.com.caiodev.walletapp.utils
 
 import java.util.regex.Pattern
 
-
-object TextValidation {
+class TextValidation {
 
     fun validateEmail(email: String): Boolean {
         return Pattern.compile(
@@ -14,6 +13,7 @@ object TextValidation {
     }
 
     fun validateCPF(cpf: String): Boolean {
+
         val cpfClean = cpf.replace(".", "").replace("-", "")
 
         //## check if size is eleven
@@ -43,7 +43,7 @@ object TextValidation {
             position++
         }
 
-        //Verify the nineth digit
+        //Verify the ninth digit
         var dvForTenthDigit = sumProductNine.sum() % 11
 
         dvForTenthDigit = 11 - dvForTenthDigit //rule for tenth digit
@@ -70,12 +70,12 @@ object TextValidation {
         }
 
         //Verify the ninth digit
-        var dvForeleventhDigit = sumProductTen.sum() % 11
-        dvForeleventhDigit = 11 - dvForeleventhDigit //rule for tenth digit
+        var dvForEleventhDigit = sumProductTen.sum() % 11
+        dvForEleventhDigit = 11 - dvForEleventhDigit //rule for tenth digit
 
-        if (dvForeleventhDigit > 9) dvForeleventhDigit = 0
+        if (dvForEleventhDigit > 9) dvForEleventhDigit = 0
 
-        if (dvForeleventhDigit != dvCurrent11)
+        if (dvForEleventhDigit != dvCurrent11)
             return false
 
         return true

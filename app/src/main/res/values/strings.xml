@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name" translatable="false">WalletApp</string>
-    <string name="email" translatable="false">Email</string>
     <string name="user_login" translatable="false">Email / CPF</string>
     <string name="user_password">Password</string>
     <string name="login_button" translatable="false">Login</string>

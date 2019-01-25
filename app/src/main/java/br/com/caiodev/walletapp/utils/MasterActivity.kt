@@ -1,6 +1,8 @@
 package br.com.caiodev.walletapp.utils
 
+import android.content.Context
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -32,5 +34,11 @@ abstract class MasterActivity : AppCompatActivity() {
         message: String
     ) {
         Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG).show()
+    }
+
+    protected fun hideKeyboard(context: Context, view: View) {
+        with(context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager) {
+            this.hideSoftInputFromWindow(view.windowToken, 0)
+        }
     }
 }

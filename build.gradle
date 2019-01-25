@@ -23,7 +23,7 @@ buildscript {
         hawk = '2.0.1'
 
         //Kotlin
-        kotlin_version = '1.3.11'
+        kotlin_version = '1.3.20'
 
         //okHttpLoggingInterceptor
         loggingInterceptor = '3.9.1'
