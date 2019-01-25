@@ -8,17 +8,17 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import br.com.caiodev.walletapp.R
-import br.com.caiodev.walletapp.extensions.setViewVisibility
 import br.com.caiodev.walletapp.login.model.LoginResponse
 import br.com.caiodev.walletapp.login.view.LoginActivity
-import br.com.caiodev.walletapp.statements.viewModel.StatementViewModel
-import br.com.caiodev.walletapp.statements.viewModel.ViewModelDataHelper
+import br.com.caiodev.walletapp.statements.view_model.StatementViewModel
+import br.com.caiodev.walletapp.statements.view_model.ViewModelDataHelper
 import br.com.caiodev.walletapp.utils.HawkIds
 import br.com.caiodev.walletapp.utils.MasterActivity
 import kotlinx.android.synthetic.main.activity_user_account_detail.*
 
 class UserAccountDetailActivity : MasterActivity() {
 
+    private var parentView: View? = null
     private lateinit var viewModel: StatementViewModel
     private val viewModelDataHelper = ViewModelDataHelper()
 
@@ -28,10 +28,11 @@ class UserAccountDetailActivity : MasterActivity() {
 
         setupView()
         setupViewModel()
-        bindViewToViewModel()
+        handleViewModel()
     }
 
     override fun setupView() {
+        parentView = findViewById(android.R.id.content)
         setViewVisibility(statementListProgressBar, View.VISIBLE)
         accountOwnerStatementsRecyclerView.setHasFixedSize(true)
         statementListSwipeRefreshLayout.setColorSchemeResources(R.color.purple)
@@ -46,7 +47,7 @@ class UserAccountDetailActivity : MasterActivity() {
             accountNumberTextView.text = bankAccount
 
             accountBalanceTextView.text =
-                    String.format(getString(R.string.balance_placeholder), balance.toString())
+                String.format(getString(R.string.balance_placeholder), balance.toString())
         }
 
         logoutImageView.setOnClickListener {
@@ -54,29 +55,33 @@ class UserAccountDetailActivity : MasterActivity() {
             startActivity(Intent(applicationContext, LoginActivity::class.java))
         }
 
-        viewModel.getStatement()
-
         statementListSwipeRefreshLayout.setOnRefreshListener {
             viewModel.getStatement()
         }
     }
 
-    override fun bindViewToViewModel() {
+    override fun handleViewModel() {
+
+        viewModel.getStatement()
 
         viewModel.state.observe(this, Observer { state ->
 
             when (state) {
 
                 StatementViewModel.onStatementRetrievalSuccess -> {
+
                     viewModelDataHelper.listReceiver(viewModel.getStatementList())
+
                     accountOwnerStatementsRecyclerView.adapter =
-                            StatementAdapter(viewModelDataHelper)
+                        StatementAdapter(viewModelDataHelper)
 
                     runLayoutAnimation(accountOwnerStatementsRecyclerView)
                 }
 
                 StatementViewModel.onStatementRetrievalError -> {
-
+                    setViewVisibility(statementListProgressBar, View.GONE)
+                    setViewVisibility(statementListSwipeRefreshLayout)
+                    showSnackBar("Check your internet connection")
                 }
             }
         })
@@ -94,8 +99,7 @@ class UserAccountDetailActivity : MasterActivity() {
         recyclerView.adapter?.notifyDataSetChanged()
         recyclerView.scheduleLayoutAnimation()
 
-        if (statementListSwipeRefreshLayout.isRefreshing) statementListSwipeRefreshLayout.isRefreshing =
-                false
+        setViewVisibility(statementListSwipeRefreshLayout)
 
         if (statementListProgressBar.visibility == View.VISIBLE) setViewVisibility(
             statementListProgressBar,

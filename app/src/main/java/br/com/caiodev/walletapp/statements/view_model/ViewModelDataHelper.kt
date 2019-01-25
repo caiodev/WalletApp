@@ -1,4 +1,4 @@
-package br.com.caiodev.walletapp.statements.viewModel
+package br.com.caiodev.walletapp.statements.view_model
 
 import br.com.caiodev.walletapp.statements.model.Statement
 import br.com.caiodev.walletapp.statements.view.RecyclerViewDataSource

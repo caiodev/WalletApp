@@ -7,10 +7,9 @@ import android.widget.EditText
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import br.com.caiodev.walletapp.R
-import br.com.caiodev.walletapp.extensions.setViewVisibility
 import br.com.caiodev.walletapp.login.model.LoginRequest
 import br.com.caiodev.walletapp.login.model.LoginResponse
-import br.com.caiodev.walletapp.login.viewModel.LoginViewModel
+import br.com.caiodev.walletapp.login.view_model.LoginViewModel
 import br.com.caiodev.walletapp.statements.view.UserAccountDetailActivity
 import br.com.caiodev.walletapp.utils.HawkIds
 import br.com.caiodev.walletapp.utils.MasterActivity
@@ -29,7 +28,7 @@ class LoginActivity : MasterActivity() {
 
         setupView()
         setupViewModel()
-        bindViewToViewModel()
+        handleViewModel()
     }
 
     override fun setupView() {
@@ -56,7 +55,7 @@ class LoginActivity : MasterActivity() {
         }
     }
 
-    override fun bindViewToViewModel() {
+    override fun handleViewModel() {
 
         viewModel.state.observe(this, Observer { state ->
 
