@@ -14,8 +14,7 @@ class StatementViewModel : ViewModel() {
 
     val state = MutableLiveData<Int>()
     private var statementList = mutableListOf<Statement>()
-    private val coroutineContext = Job() + Dispatchers.Default
-    private val scope = CoroutineScope(coroutineContext)
+    private val scope = CoroutineScope(Job() + Dispatchers.Default)
     private val repository = StatementRepository()
 
     fun getStatement() {
@@ -41,12 +40,6 @@ class StatementViewModel : ViewModel() {
     }
 
     fun getStatementList() = statementList
-
-//    fun <T> getHawkValue(key: String) = Hawk.get(key) as T
-//
-//    fun deleteHawkValue(key: String) {
-//        Hawk.delete(key)
-//    }
 
     companion object {
         const val onStatementRetrievalSuccess = 0

@@ -45,12 +45,6 @@ class LoginViewModel : ViewModel() {
         }
     }
 
-//    fun <T> getHawkValue(key: String) = Hawk.get(key) as T
-//
-//    fun <T> putValueIntoHawk(key: String, value: T) {
-//        Hawk.put(key, value)
-//    }
-
     companion object {
         const val onLoginSuccess = 0
         const val onLoginError = 1
