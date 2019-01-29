@@ -17,7 +17,6 @@
 
         <activity
             android:name="br.com.caiodev.walletapp.sections.login.view.LoginActivity"
-            android:noHistory="true"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,7 +27,6 @@
 
         <activity
             android:name="br.com.caiodev.walletapp.sections.statement.view.UserAccountDetailActivity"
-            android:noHistory="true"
             android:screenOrientation="portrait" />
 
     </application>

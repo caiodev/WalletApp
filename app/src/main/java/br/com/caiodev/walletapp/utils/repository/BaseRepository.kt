@@ -1,6 +1,7 @@
 package br.com.caiodev.walletapp.utils.repository
 
 import br.com.caiodev.walletapp.utils.factory.RetrofitService
+import br.com.caiodev.walletapp.utils.service.APICallResult
 import br.com.caiodev.walletapp.utils.service.BankService
 import retrofit2.Response
 import java.net.UnknownHostException
@@ -19,14 +20,14 @@ open class BaseRepository {
 
             if (response.isSuccessful) {
                 response.body()?.let { apiResponse ->
-                    return apiResponse
+                    return APICallResult.Success(apiResponse)
                 }
             }
 
         } catch (exception: UnknownHostException) {
-            return true
+            return APICallResult.Error
         }
 
-        return true
+        return APICallResult.Error
     }
 }

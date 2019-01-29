@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import br.com.caiodev.walletapp.sections.statement.model.Statement
 import br.com.caiodev.walletapp.sections.statement.model.UserStatement
 import br.com.caiodev.walletapp.sections.statement.model.repository.StatementRepository
+import br.com.caiodev.walletapp.utils.service.APICallResult
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -13,7 +14,7 @@ import kotlinx.coroutines.launch
 class StatementViewModel : ViewModel() {
 
     val state = MutableLiveData<Int>()
-    private var statementList = mutableListOf<Statement>()
+    private var statementListValues = mutableListOf<Statement>()
     private val scope = CoroutineScope(Job() + Dispatchers.Default)
     private val repository = StatementRepository()
 
@@ -25,21 +26,19 @@ class StatementViewModel : ViewModel() {
 
             when (value) {
 
-                is Boolean -> {
-                    state.postValue(onStatementRetrievalError)
+                is APICallResult.Success<*> -> with(value.data as UserStatement) {
+                    statementListValues = this.statementList
+                    state.postValue(onStatementRetrievalSuccess)
                 }
 
                 else -> {
-                    if (value is UserStatement) {
-                        statementList = value.statementList
-                        state.postValue(onStatementRetrievalSuccess)
-                    }
+                    state.postValue(onStatementRetrievalError)
                 }
             }
         }
     }
 
-    fun getStatementList() = statementList
+    fun getStatementList() = statementListValues
 
     companion object {
         const val onStatementRetrievalSuccess = 0

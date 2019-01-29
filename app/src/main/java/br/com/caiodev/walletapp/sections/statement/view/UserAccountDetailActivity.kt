@@ -53,6 +53,7 @@ class UserAccountDetailActivity : MasterActivity() {
         logoutImageView.setOnClickListener {
             viewModel.deleteHawkValue(HawkIds.userLoginResponseData)
             startActivity(Intent(applicationContext, LoginActivity::class.java))
+            finish()
         }
 
         statementListSwipeRefreshLayout.setOnRefreshListener {

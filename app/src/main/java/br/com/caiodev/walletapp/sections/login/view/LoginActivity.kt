@@ -60,6 +60,7 @@ class LoginActivity : MasterActivity() {
 
         viewModel.getHawkValue<LoginResponse?>(HawkIds.userLoginResponseData)?.let {
             startActivity(Intent(applicationContext, UserAccountDetailActivity::class.java))
+            finish()
         }
 
         viewModel.getHawkValue<String?>(HawkIds.userLoginCredential)?.let { credential ->
@@ -76,6 +77,7 @@ class LoginActivity : MasterActivity() {
                 LoginViewModel.onLoginSuccess -> {
                     setViewVisibility(loginProgressBar, View.GONE)
                     startActivity(Intent(applicationContext, UserAccountDetailActivity::class.java))
+                    finish()
                 }
 
                 LoginViewModel.onLoginError -> {
