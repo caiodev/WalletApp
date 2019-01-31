@@ -1,7 +1,6 @@
 package br.com.caiodev.walletapp
 
-import androidx.test.InstrumentationRegistry
-import androidx.test.runner.AndroidJUnit4
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -15,8 +14,9 @@ import org.junit.runner.RunWith
 class ExampleInstrumentedTest {
     @Test
     fun useAppContext() {
-        // Context of the app under test.
-        val appContext = InstrumentationRegistry.getTargetContext()
+        // Context of the app under test
+        val appContext =
+            androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().targetContext
         assertEquals("br.com.caiodev.walletapp", appContext.packageName)
     }
 }

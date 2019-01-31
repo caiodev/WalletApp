@@ -18,7 +18,6 @@ import br.com.caiodev.walletapp.utils.extension.getHawkValue
 import br.com.caiodev.walletapp.utils.extension.putValueIntoHawk
 import kotlinx.android.synthetic.main.activity_login.*
 
-
 class LoginActivity : MasterActivity() {
 
     private val textValidation = TextValidation()

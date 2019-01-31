@@ -27,7 +27,7 @@ class StatementViewModel : ViewModel() {
             when (value) {
 
                 is APICallResult.Success<*> -> with(value.data as UserStatement) {
-                    statementListValues = this.statementList
+                    statementListValues = statementList
                     state.postValue(onStatementRetrievalSuccess)
                 }
 

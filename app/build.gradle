@@ -33,6 +33,9 @@ dependencies {
     //AndroidX AppCompat
     implementation "androidx.appcompat:appcompat:$appCompat"
 
+    //Hawk
+    implementation "com.orhanobut:hawk:$hawk"
+
     //Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
@@ -40,27 +43,26 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayout"
     implementation "com.google.android.material:material:$materialDesign"
 
-    //Logging section
-    implementation "com.squareup.okhttp3:logging-interceptor:$loggingInterceptor"
-    implementation "com.jakewharton.timber:timber:$timber"
+    //LeakCanary
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanary"
+    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanary"
 
     //Lifecycle section
     implementation "androidx.lifecycle:lifecycle-viewmodel:$androidLifecycle"
     implementation "androidx.lifecycle:lifecycle-extensions:$androidLifecycle"
+
+    //Logging section
+    implementation "com.squareup.okhttp3:logging-interceptor:$loggingInterceptor"
+    implementation "com.jakewharton.timber:timber:$timber"
 
     //Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit"
     implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$coroutinesAdapter"
     implementation "com.squareup.retrofit2:converter-moshi:$moshiRetrofitConverter"
 
-    //Hawk
-    implementation "com.orhanobut:hawk:$hawk"
-
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.3'
-    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.3'
-
     //Test section
-    testImplementation "junit:junit:$junit"
+    androidTestImplementation "androidx.test:core:$junit"
+    androidTestImplementation "androidx.test.ext:junit:$junit"
     androidTestImplementation "androidx.test:runner:$testRunner"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso"
 }

@@ -38,7 +38,7 @@ abstract class MasterActivity : AppCompatActivity() {
 
     protected fun hideKeyboard(context: Context, view: View) {
         with(context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager) {
-            this.hideSoftInputFromWindow(view.windowToken, 0)
+            hideSoftInputFromWindow(view.windowToken, 0)
         }
     }
 }
