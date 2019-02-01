@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_user_account_detail.*
 class UserAccountDetailActivity : MasterActivity() {
 
     private lateinit var viewModel: StatementViewModel
-    private val viewModelDataHelper = ViewModelDataHelper()
+    private var viewModelDataHelper: ViewModelDataHelper? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +41,7 @@ class UserAccountDetailActivity : MasterActivity() {
     override fun setupViewModel() {
 
         viewModel = ViewModelProviders.of(this).get(StatementViewModel::class.java)
+        viewModelDataHelper = ViewModelDataHelper()
 
         viewModel.getHawkValue<LoginResponse>(HawkIds.userLoginResponseData).userAccount.apply {
             accountOwnerNameTextView.text = name
@@ -71,12 +72,15 @@ class UserAccountDetailActivity : MasterActivity() {
 
                 StatementViewModel.onStatementRetrievalSuccess -> {
 
-                    viewModelDataHelper.listReceiver(viewModel.getStatementList())
+                    viewModelDataHelper?.let {
 
-                    accountOwnerStatementsRecyclerView.adapter =
-                        StatementAdapter(viewModelDataHelper)
+                        it.listReceiver(viewModel.getStatementList())
 
-                    runLayoutAnimation(accountOwnerStatementsRecyclerView)
+                        accountOwnerStatementsRecyclerView.adapter =
+                            StatementAdapter(it)
+
+                        runLayoutAnimation(accountOwnerStatementsRecyclerView)
+                    }
                 }
 
                 StatementViewModel.onStatementRetrievalError -> {
