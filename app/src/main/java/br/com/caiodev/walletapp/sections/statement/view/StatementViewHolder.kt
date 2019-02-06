@@ -11,8 +11,9 @@ class StatementViewHolder(itemView: View) :
     RecyclerView.ViewHolder(itemView) {
 
     fun bind(model: Statement) {
+
         itemView.transactionTypeHeaderTextView.text = model.title
-        itemView.paymentTypeTextView.text = model.desc
+        itemView.paymentTypeTextView.text = model.description
         itemView.transactionDateTextView.text = model.date
 
         when {

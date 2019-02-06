@@ -6,6 +6,7 @@ buildscript {
 
         //Androidx AppCompat
         appCompat = '1.0.2'
+        core = '1.0.1'
 
         //Androidx ConstraintLayout
         constraintLayout = '2.0.0-alpha3'
@@ -22,6 +23,10 @@ buildscript {
         //Kotlin
         kotlin_version = '1.3.20'
 
+        //Ktx
+        core = '1.1.0-alpha04'
+        viewModel = '2.1.0-alpha02'
+
         //LeakCanary
         leakCanary = '1.6.3'
 
@@ -29,7 +34,7 @@ buildscript {
         androidLifecycle = '2.0.0'
 
         //Material design
-        materialDesign = '1.1.0-alpha02'
+        materialDesign = '1.1.0-alpha03'
 
         //OkHttpLoggingInterceptor
         loggingInterceptor = '3.9.1'
@@ -87,6 +92,8 @@ allprojects {
                 includeGroup "com.facebook.conceal"
                 includeGroup "com.google.code.findbugs"
                 includeGroup "com.google.code.gson"
+                includeGroup "com.google.guava"
+                includeGroup "org.sonatype.oss"
             }
         }
     }

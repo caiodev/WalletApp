@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
@@ -18,7 +19,7 @@ import br.com.caiodev.walletapp.utils.extension.deleteHawkValue
 import br.com.caiodev.walletapp.utils.extension.getHawkValue
 import kotlinx.android.synthetic.main.activity_user_account_detail.*
 
-class UserAccountDetailActivity : MasterActivity() {
+class UserAccountDetailActivity : MasterActivity(), LifecycleOwner {
 
     private lateinit var viewModel: StatementViewModel
     private var viewModelDataHelper: ViewModelDataHelper? = null

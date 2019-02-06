@@ -32,6 +32,11 @@ dependencies {
 
     //AndroidX AppCompat
     implementation "androidx.appcompat:appcompat:$appCompat"
+    implementation "androidx.core:core:$core"
+
+    //Ktx
+    implementation "androidx.core:core-ktx:$core"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewModel"
 
     //Hawk
     implementation "com.orhanobut:hawk:$hawk"

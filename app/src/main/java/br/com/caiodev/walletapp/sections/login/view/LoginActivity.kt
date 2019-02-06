@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import br.com.caiodev.walletapp.sections.login.model.LoginRequest
@@ -18,7 +19,7 @@ import br.com.caiodev.walletapp.utils.extension.getHawkValue
 import br.com.caiodev.walletapp.utils.extension.putValueIntoHawk
 import kotlinx.android.synthetic.main.activity_login.*
 
-class LoginActivity : MasterActivity() {
+class LoginActivity : MasterActivity(), LifecycleOwner {
 
     private val textValidation = TextValidation()
     private lateinit var viewModel: LoginViewModel
