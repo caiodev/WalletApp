@@ -25,6 +25,7 @@ class UserAccountDetailActivity : MasterActivity(), LifecycleOwner {
     private lateinit var viewModel: StatementViewModel
     private var viewModelDataHelper: ViewModelDataHelper? = null
     private var textFormatting: TextFormatting? = null
+    private var isAdapterInstantiated = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,10 +80,14 @@ class UserAccountDetailActivity : MasterActivity(), LifecycleOwner {
 
                         it.listReceiver(viewModel.getStatementList())
 
-                        accountOwnerStatementsRecyclerView.adapter =
-                            StatementAdapter(it)
-
-                        runLayoutAnimation(accountOwnerStatementsRecyclerView)
+                        if (!isAdapterInstantiated) {
+                            accountOwnerStatementsRecyclerView.adapter =
+                                StatementAdapter(it)
+                            isAdapterInstantiated = true
+                            runLayoutAnimation(accountOwnerStatementsRecyclerView)
+                        } else {
+                            runLayoutAnimation(accountOwnerStatementsRecyclerView)
+                        }
                     }
                 }
 
@@ -106,8 +111,7 @@ class UserAccountDetailActivity : MasterActivity(), LifecycleOwner {
         recyclerView.layoutAnimation = controller
         recyclerView.adapter?.notifyDataSetChanged()
         recyclerView.scheduleLayoutAnimation()
-
-        setViewVisibility(statementListSwipeRefreshLayout)
+        statementListSwipeRefreshLayout.isRefreshing = false
 
         if (statementListProgressBar.visibility == View.VISIBLE) setViewVisibility(
             statementListProgressBar,

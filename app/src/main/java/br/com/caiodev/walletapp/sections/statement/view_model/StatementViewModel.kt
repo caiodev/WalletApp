@@ -30,6 +30,7 @@ class StatementViewModel : ViewModel() {
 
                 is APICallResult.Success<*> -> with(value.data as UserStatement) {
 
+                    statementListValues.clear()
                     statementListValues.add(Header("Recent"))
 
                     statementList.forEach { statementList ->
