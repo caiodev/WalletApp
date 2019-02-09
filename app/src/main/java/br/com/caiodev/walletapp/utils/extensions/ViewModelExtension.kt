@@ -1,4 +1,4 @@
-package br.com.caiodev.walletapp.utils.extension
+package br.com.caiodev.walletapp.utils.extensions
 
 import androidx.lifecycle.ViewModel
 import com.orhanobut.hawk.Hawk

@@ -14,14 +14,11 @@ import br.com.caiodev.walletapp.sections.login.view_model.LoginViewModel
 import br.com.caiodev.walletapp.sections.statement.view.UserAccountDetailActivity
 import br.com.caiodev.walletapp.utils.HawkIds
 import br.com.caiodev.walletapp.utils.MasterActivity
-import br.com.caiodev.walletapp.utils.TextValidation
-import br.com.caiodev.walletapp.utils.extension.getHawkValue
-import br.com.caiodev.walletapp.utils.extension.putValueIntoHawk
+import br.com.caiodev.walletapp.utils.extensions.*
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : MasterActivity(), LifecycleOwner {
 
-    private val textValidation = TextValidation()
     private lateinit var viewModel: LoginViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -94,15 +91,15 @@ class LoginActivity : MasterActivity(), LifecycleOwner {
 
         if (userLoginEditText.text.toString().isNotEmpty()) {
 
-            if (textValidation.validateEmail(userLoginEditText.text.toString()) ||
-                textValidation.validateCPF(userLoginEditText.text.toString())
+            if (validateEmail(userLoginEditText.text.toString()) ||
+                validateCPF(userLoginEditText.text.toString())
             ) {
 
                 if (userPasswordEditText.text.toString().isNotEmpty()) {
 
                     when {
 
-                        textValidation.validatePassword(userPasswordEditText.text.toString()) -> {
+                        validatePassword(userPasswordEditText.text.toString()) -> {
 
                             loginButton.isClickable = false
                             setXY(loginButton, 0f, 0f)

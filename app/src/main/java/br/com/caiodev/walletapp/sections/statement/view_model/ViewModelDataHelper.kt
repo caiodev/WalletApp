@@ -1,13 +1,13 @@
 package br.com.caiodev.walletapp.sections.statement.view_model
 
-import br.com.caiodev.walletapp.sections.statement.model.Statement
 import br.com.caiodev.walletapp.sections.statement.view.RecyclerViewDataSource
+import br.com.caiodev.walletapp.utils.ViewType
 
-class ViewModelDataHelper : RecyclerViewDataSource<Statement> {
+class ViewModelDataHelper : RecyclerViewDataSource<ViewType> {
 
-    private var statementList = mutableListOf<Statement>()
+    private var statementList = mutableListOf<ViewType>()
 
-    fun listReceiver(list: MutableList<Statement>) {
+    fun listReceiver(list: MutableList<ViewType>) {
         statementList.clear()
         statementList = list
     }
@@ -16,7 +16,7 @@ class ViewModelDataHelper : RecyclerViewDataSource<Statement> {
         return statementList.size
     }
 
-    override fun getItem(position: Int): Statement {
+    override fun getItem(position: Int): ViewType {
         return statementList[position]
     }
 }

@@ -21,7 +21,7 @@ buildscript {
         hawk = '2.0.1'
 
         //Kotlin
-        kotlin_version = '1.3.20'
+        kotlin_version = '1.3.21'
 
         //Ktx
         core = '1.1.0-alpha04'

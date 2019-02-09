@@ -15,14 +15,16 @@ import br.com.caiodev.walletapp.sections.statement.view_model.StatementViewModel
 import br.com.caiodev.walletapp.sections.statement.view_model.ViewModelDataHelper
 import br.com.caiodev.walletapp.utils.HawkIds
 import br.com.caiodev.walletapp.utils.MasterActivity
-import br.com.caiodev.walletapp.utils.extension.deleteHawkValue
-import br.com.caiodev.walletapp.utils.extension.getHawkValue
+import br.com.caiodev.walletapp.utils.TextFormatting
+import br.com.caiodev.walletapp.utils.extensions.deleteHawkValue
+import br.com.caiodev.walletapp.utils.extensions.getHawkValue
 import kotlinx.android.synthetic.main.activity_user_account_detail.*
 
 class UserAccountDetailActivity : MasterActivity(), LifecycleOwner {
 
     private lateinit var viewModel: StatementViewModel
     private var viewModelDataHelper: ViewModelDataHelper? = null
+    private var textFormatting: TextFormatting? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,8 +50,8 @@ class UserAccountDetailActivity : MasterActivity(), LifecycleOwner {
             accountOwnerNameTextView.text = name
             accountNumberTextView.text = bankAccount
 
-            accountBalanceTextView.text =
-                String.format(getString(R.string.balance_placeholder), balance.toString())
+            textFormatting = TextFormatting()
+            accountBalanceTextView.text = textFormatting?.formatCurrency(balance)
         }
 
         logoutImageView.setOnClickListener {

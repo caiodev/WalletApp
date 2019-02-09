@@ -7,7 +7,7 @@
     tools:context=".sections.statement.view.UserAccountDetailActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/userDataSection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/purple"
@@ -88,18 +88,6 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/recentStatementsTextView"
-        style="@style/margin_16dp"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/padding_4dp"
-        android:text="@string/statement_header"
-        android:textColor="@color/gray_800"
-        android:textSize="@dimen/recent_statements_header_text_view_text_size"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/statementListSwipeRefreshLayout"
         android:layout_width="0dp"
@@ -107,7 +95,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recentStatementsTextView">
+        app:layout_constraintTop_toBottomOf="@+id/userDataSection">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/accountOwnerStatementsRecyclerView"

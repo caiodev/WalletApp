@@ -19,4 +19,7 @@
     <!--Shades of green-->
     <color name="green">#1B5E20</color>
 
+    <!--Shades of yellow-->
+    <color name="yellow">#FFEB3B</color>
+
 </resources>
