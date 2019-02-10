@@ -28,9 +28,9 @@ class RetrofitService {
                     Timber.tag(timberTag).d(message)
                 }).setLevel(HttpLoggingInterceptor.Level.BODY)
             )
-            .connectTimeout(1L, TimeUnit.MINUTES)
-            .readTimeout(1L, TimeUnit.MINUTES)
-            .writeTimeout(1L, TimeUnit.MINUTES)
+            .connectTimeout(30, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .writeTimeout(30, TimeUnit.SECONDS)
             .hostnameVerifier { _, _ -> true }
             .build() as OkHttpClient
 }

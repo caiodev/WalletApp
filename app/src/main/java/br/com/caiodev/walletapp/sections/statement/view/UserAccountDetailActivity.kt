@@ -93,7 +93,7 @@ class UserAccountDetailActivity : MasterActivity(), LifecycleOwner {
 
                 StatementViewModel.onStatementRetrievalError -> {
                     setViewVisibility(statementListProgressBar, View.GONE)
-                    setViewVisibility(statementListSwipeRefreshLayout)
+                    dismissSwipeRefreshLayoutLoading(statementListSwipeRefreshLayout)
                     showSnackBar("Check your internet connection")
                 }
             }
@@ -111,7 +111,7 @@ class UserAccountDetailActivity : MasterActivity(), LifecycleOwner {
         recyclerView.layoutAnimation = controller
         recyclerView.adapter?.notifyDataSetChanged()
         recyclerView.scheduleLayoutAnimation()
-        statementListSwipeRefreshLayout.isRefreshing = false
+        dismissSwipeRefreshLayoutLoading(statementListSwipeRefreshLayout)
 
         if (statementListProgressBar.visibility == View.VISIBLE) setViewVisibility(
             statementListProgressBar,

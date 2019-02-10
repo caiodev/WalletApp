@@ -41,4 +41,8 @@ abstract class MasterActivity : AppCompatActivity() {
             hideSoftInputFromWindow(view.windowToken, 0)
         }
     }
+
+    protected fun dismissSwipeRefreshLayoutLoading(swipeRefreshLayout: SwipeRefreshLayout) {
+        swipeRefreshLayout.isRefreshing = false
+    }
 }

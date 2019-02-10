@@ -4,6 +4,7 @@ import br.com.caiodev.walletapp.utils.factory.RetrofitService
 import br.com.caiodev.walletapp.utils.service.APICallResult
 import br.com.caiodev.walletapp.utils.service.BankService
 import retrofit2.Response
+import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
 open class BaseRepository {
@@ -24,8 +25,14 @@ open class BaseRepository {
                 }
             }
 
-        } catch (exception: UnknownHostException) {
-            return APICallResult.Error
+        } catch (exception: Exception) {
+
+            when (exception) {
+
+                is UnknownHostException, is SocketTimeoutException -> {
+                    return APICallResult.Error
+                }
+            }
         }
 
         return APICallResult.Error
