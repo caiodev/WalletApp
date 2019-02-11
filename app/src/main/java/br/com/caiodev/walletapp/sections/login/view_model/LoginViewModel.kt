@@ -6,6 +6,7 @@ import br.com.caiodev.walletapp.sections.login.model.LoginRequest
 import br.com.caiodev.walletapp.sections.login.model.LoginResponse
 import br.com.caiodev.walletapp.sections.login.model.repository.LoginRepository
 import br.com.caiodev.walletapp.utils.HawkIds
+import br.com.caiodev.walletapp.utils.service.APICallResult
 import com.orhanobut.hawk.Hawk
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -29,17 +30,15 @@ class LoginViewModel : ViewModel() {
 
             when (value) {
 
-                is Boolean -> {
-                    state.postValue(onLoginError)
+                is APICallResult.Success<*> -> with(value.data as LoginResponse) {
+                    userResponse = value.data
+                    Hawk.put(HawkIds.userLoginResponseData, userResponse)
+                    state.postValue(onLoginSuccess)
+                    Timber.i("Account owner: %s", userResponse?.userAccount?.name)
                 }
 
                 else -> {
-                    if (value is LoginResponse) {
-                        userResponse = value
-                        Hawk.put(HawkIds.userLoginResponseData, userResponse)
-                        state.postValue(onLoginSuccess)
-                        Timber.i("Account owner: %s", userResponse?.userAccount?.name)
-                    }
+                    state.postValue(onLoginError)
                 }
             }
         }

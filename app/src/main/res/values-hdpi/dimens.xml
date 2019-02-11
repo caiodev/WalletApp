@@ -28,7 +28,7 @@
     <dimen name="recent_statements_header_text_view_text_size">@dimen/text_size_22</dimen>
 
     <!--Item layout elements-->
-    <dimen name="recycler_item_view_layout_margin_top">@dimen/margin_10dp</dimen>
+    <dimen name="recycler_item_view_layout_margin_top">@dimen/margin_8dp</dimen>
     <dimen name="transaction_type_header_text_view_text_size">@dimen/text_size_18</dimen>
     <dimen name="payment_type_text_view_margin_top">@dimen/margin_8dp</dimen>
     <dimen name="payment_type_text_view_text_size">@dimen/text_size_20</dimen>
