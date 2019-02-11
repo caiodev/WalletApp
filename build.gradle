@@ -44,6 +44,9 @@ buildscript {
         retrofitConverterGson = '2.4.0'
         moshiRetrofitConverter = '2.5.0'
 
+        //Room
+        room = '2.1.0-alpha04'
+
         //Test dependency versions
         espresso = '3.1.0-beta02'
         junit = '1.1.1-alpha01'

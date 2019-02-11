@@ -18,71 +18,69 @@
 
         <TextView
             android:id="@+id/accountOwnerNameTextView"
-            style="@style/margin_16dp"
-            android:layout_width="wrap_content"
+            style="@style/custom_margin_16dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/notosans_regular"
-            android:textColor="@android:color/white"
             android:textSize="@dimen/account_owner_name_text_view_text_size"
-            app:layout_constraintBottom_toBottomOf="@+id/logoutImageView"
+            app:layout_constraintEnd_toStartOf="@+id/logoutImageView"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/logoutImageView" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/logoutImageView"
             style="@style/margin_16dp"
             android:layout_width="@dimen/logout_image_view_dimensions"
             android:layout_height="@dimen/logout_image_view_dimensions"
-            android:layout_marginTop="@dimen/margin_16dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:focusable="true"
-            android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_logout"
+            app:layout_constraintBottom_toBottomOf="@+id/accountOwnerNameTextView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/accountOwnerNameTextView"
             tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/accountHeaderTextView"
-            android:layout_width="wrap_content"
+            style="@style/user_data_layout"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/account_header_margin_top"
-            android:fontFamily="@font/notosans_regular"
             android:text="@string/account_header"
-            android:textColor="@android:color/white"
             android:textSize="@dimen/account_header_text_view_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/accountOwnerNameTextView"
             app:layout_constraintTop_toBottomOf="@+id/accountOwnerNameTextView" />
 
         <TextView
             android:id="@+id/accountNumberTextView"
-            android:layout_width="wrap_content"
+            style="@style/user_data_layout"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/notosans_regular"
-            android:textColor="@android:color/white"
             android:textSize="@dimen/account_number_text_view_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/accountHeaderTextView"
             app:layout_constraintTop_toBottomOf="@+id/accountHeaderTextView" />
 
         <TextView
             android:id="@+id/balanceHeaderTextView"
-            android:layout_width="wrap_content"
+            style="@style/user_data_layout"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_8dp"
-            android:fontFamily="@font/notosans_regular"
             android:text="@string/balance_header"
-            android:textColor="@android:color/white"
             android:textSize="@dimen/balance_header_text_view_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/accountNumberTextView"
             app:layout_constraintTop_toBottomOf="@+id/accountNumberTextView" />
 
         <TextView
             android:id="@+id/accountBalanceTextView"
-            android:layout_width="wrap_content"
+            style="@style/user_data_layout"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/notosans_regular"
-            android:textColor="@android:color/white"
             android:textSize="@dimen/account_balance_text_view_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/balanceHeaderTextView"
             app:layout_constraintTop_toBottomOf="@+id/balanceHeaderTextView" />
 

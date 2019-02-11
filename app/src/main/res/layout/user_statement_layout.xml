@@ -5,23 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/recycler_item_view_layout_margin_top"
-    android:background="@android:color/white"
-    app:cardCornerRadius="4dp"
-    app:cardElevation="4dp">
+    app:cardCornerRadius="@dimen/margin_4dp"
+    app:cardElevation="@dimen/margin_4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="@dimen/padding_8dp"
-        android:paddingBottom="@dimen/padding_8dp">
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_6dp"
+        android:clipToPadding="false">
 
         <TextView
             android:id="@+id/transactionTypeHeaderTextView"
-            style="@style/margin_16dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:maxLines="1"
+            android:fontFamily="@font/notosans_regular"
             android:textColor="@color/gray_500"
             android:textSize="@dimen/text_size_18"
             app:layout_constraintEnd_toStartOf="@+id/transactionDateTextView"
@@ -29,19 +26,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/paymentTypeTextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/payment_type_text_view_margin_top"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/text_size_20"
-            app:layout_constraintEnd_toStartOf="@+id/ownerAccountBalanceTextView"
-            app:layout_constraintStart_toStartOf="@+id/transactionTypeHeaderTextView"
-            app:layout_constraintTop_toBottomOf="@+id/transactionTypeHeaderTextView" />
-
-        <TextView
             android:id="@+id/transactionDateTextView"
-            style="@style/margin_16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/gray_500"
@@ -51,14 +36,27 @@
             app:layout_constraintTop_toTopOf="@+id/transactionTypeHeaderTextView" />
 
         <TextView
+            android:id="@+id/paymentTypeTextView"
+            style="@style/ellipsize_and_max_lines"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/payment_type_text_view_margin_top"
+            android:layout_marginEnd="@dimen/margin_4dp"
+            android:layout_marginRight="@dimen/margin_4dp"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/text_size_20"
+            app:layout_constraintEnd_toStartOf="@+id/ownerAccountBalanceTextView"
+            app:layout_constraintStart_toStartOf="@+id/transactionTypeHeaderTextView"
+            app:layout_constraintTop_toBottomOf="@+id/transactionTypeHeaderTextView" />
+
+        <TextView
             android:id="@+id/ownerAccountBalanceTextView"
-            style="@style/margin_8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/muli_extralight"
-            android:textSize="@dimen/text_size_26"
+            android:textSize="@dimen/text_size_22"
             app:layout_constraintBottom_toBottomOf="@+id/paymentTypeTextView"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/transactionDateTextView"
             app:layout_constraintTop_toTopOf="@+id/paymentTypeTextView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

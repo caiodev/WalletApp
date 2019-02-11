@@ -7,7 +7,7 @@ class ViewModelDataHelper : RecyclerViewDataSource<ViewType> {
 
     private var statementList = mutableListOf<ViewType>()
 
-    fun listReceiver(list: MutableList<ViewType>) {
+    fun getList(list: MutableList<ViewType>) {
         statementList = list
     }
 

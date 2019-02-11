@@ -33,6 +33,9 @@ class StatementViewModel : ViewModel() {
                     statementListValues.clear()
                     statementListValues.add(Header("Recent"))
 
+                    //Sort list by Date
+
+
                     statementList.forEach { statementList ->
                         statementListValues.add(
                             Statement(

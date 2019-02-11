@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@android:color/white</item>
     </style>
 
     <!--Padding Section-->
@@ -144,10 +145,47 @@
         <item name="android:textSize">@dimen/text_size_16</item>
     </style>
 
+    <style name="margin_right_4dp" parent="AppTheme">
+        <item name="android:layout_marginRight">@dimen/margin_4dp</item>
+        <item name="android:layout_marginEnd">@dimen/margin_4dp</item>
+    </style>
+
+    <style name="margin_right_8dp" parent="AppTheme">
+        <item name="android:layout_marginRight">@dimen/margin_8dp</item>
+        <item name="android:layout_marginEnd">@dimen/margin_8dp</item>
+    </style>
+
+    <style name="margin_left_8dp" parent="AppTheme">
+        <item name="android:layout_marginStart">@dimen/margin_8dp</item>
+        <item name="android:layout_marginLeft">@dimen/margin_8dp</item>
+    </style>
+
     <style name="margin_16dp_left_padding_top" parent="AppTheme">
         <item name="android:layout_marginStart">@dimen/margin_16dp</item>
         <item name="android:layout_marginLeft">@dimen/margin_16dp</item>
         <item name="android:paddingTop">@dimen/padding_4dp</item>
+    </style>
+
+    <style name="ellipsize_and_max_lines" parent="AppTheme">
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="custom_margin_16dp" parent="ellipsize_and_max_lines">
+        <item name="android:layout_marginStart">@dimen/margin_16dp</item>
+        <item name="android:layout_marginRight">@dimen/margin_16dp</item>
+        <item name="android:layout_marginEnd">@dimen/margin_16dp</item>
+        <item name="android:layout_marginLeft">@dimen/margin_16dp</item>
+        <item name="android:layout_marginTop">@dimen/margin_8dp</item>
+        <item name="android:fontFamily">@font/notosans_regular</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="user_data_layout" parent="ellipsize_and_max_lines">
+        <item name="android:layout_marginRight">@dimen/margin_8dp</item>
+        <item name="android:layout_marginEnd">@dimen/margin_8dp</item>
+        <item name="android:fontFamily">@font/notosans_regular</item>
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
 </resources>

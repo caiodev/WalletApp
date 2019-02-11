@@ -25,7 +25,7 @@ class UserAccountDetailActivity : MasterActivity(), LifecycleOwner {
     private lateinit var viewModel: StatementViewModel
     private var viewModelDataHelper: ViewModelDataHelper? = null
     private var textFormatting: TextFormatting? = null
-    private var isAdapterInstantiated = false
+    private var statementAdapter: StatementAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,14 +78,13 @@ class UserAccountDetailActivity : MasterActivity(), LifecycleOwner {
 
                     viewModelDataHelper?.let {
 
-                        it.listReceiver(viewModel.getStatementList())
+                        it.getList(viewModel.getStatementList())
 
-                        if (!isAdapterInstantiated) {
-                            accountOwnerStatementsRecyclerView.adapter =
-                                StatementAdapter(it)
-                            isAdapterInstantiated = true
+                        statementAdapter?.let {
                             runLayoutAnimation(accountOwnerStatementsRecyclerView)
-                        } else {
+                        } ?: run {
+                            statementAdapter = StatementAdapter(it)
+                            accountOwnerStatementsRecyclerView.adapter = statementAdapter
                             runLayoutAnimation(accountOwnerStatementsRecyclerView)
                         }
                     }
