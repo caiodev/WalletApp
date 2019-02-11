@@ -30,8 +30,8 @@ class LoginViewModel : ViewModel() {
 
             when (value) {
 
-                is APICallResult.Success<*> -> with(value.data as LoginResponse) {
-                    userResponse = value.data
+                is APICallResult.Success<*> -> {
+                    userResponse = value.data as LoginResponse
                     Hawk.put(HawkIds.userLoginResponseData, userResponse)
                     state.postValue(onLoginSuccess)
                     Timber.i("Account owner: %s", userResponse?.userAccount?.name)
