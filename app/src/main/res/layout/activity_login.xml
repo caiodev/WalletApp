@@ -8,10 +8,10 @@
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_32dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:src="@drawable/ic_logo"
+        app:layout_constraintBottom_toTopOf="@+id/userLoginEditText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -22,15 +22,15 @@
         style="@style/user_login_edit_texts"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_96dp"
+        android:layout_marginBottom="@dimen/margin_16dp"
         android:autofillHints="email"
         android:cursorVisible="false"
         android:hint="@string/user_login"
         android:imeOptions="actionNext"
         android:inputType="textEmailAddress"
+        app:layout_constraintBottom_toTopOf="@+id/userPasswordEditText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logo"
         tools:targetApi="O" />
 
     <EditText
@@ -38,13 +38,14 @@
         style="@style/user_login_edit_texts"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_32dp"
         android:autofillHints="@string/user_password"
         android:hint="@string/user_password"
         android:imeOptions="actionDone"
         android:inputType="textPassword"
+        app:layout_constraintBottom_toTopOf="@+id/loginProgressBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userLoginEditText"
         tools:targetApi="O" />
 
     <com.google.android.material.button.MaterialButton
@@ -52,7 +53,7 @@
         style="@style/margin_88dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_32dp"
+        android:layout_marginBottom="@dimen/margin_16dp"
         android:background="@color/purple"
         android:fontFamily="@font/notosans_regular"
         android:paddingTop="@dimen/padding_12dp"
