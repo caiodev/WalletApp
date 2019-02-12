@@ -2,6 +2,10 @@
 
     <!--Login screen values-->
     <dimen name="margin_2dp">2dp</dimen>
+    <dimen name="logo_width">@dimen/view_150dp</dimen>
+    <dimen name="logo_height">@dimen/view_150dp</dimen>
+    <dimen name="edit_text_text_sizes">@dimen/text_size_16</dimen>
+    <dimen name="login_button_text_size">@dimen/text_size_18</dimen>
 
     <!--Statement screen values-->
     <!--Owner name TextView-->

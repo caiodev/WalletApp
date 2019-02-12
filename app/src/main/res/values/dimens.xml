@@ -62,6 +62,10 @@
     <dimen name="view_64dp">64dp</dimen>
     <dimen name="view_76dp">76dp</dimen>
     <dimen name="view_100dp">100dp</dimen>
+    <dimen name="view_150dp">150dp</dimen>
+    <dimen name="view_184dp">184dp</dimen>
+    <dimen name="view_208dp">208dp</dimen>
+    <dimen name="view_240dp">240dp</dimen>
 
     <!--Text sizes-->
     <dimen name="text_size_4">4sp</dimen>

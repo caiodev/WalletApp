@@ -32,26 +32,30 @@ class StatementViewModel : ViewModel() {
 
                     statementListValues.clear()
                     statementListValues.add(Header("Recent"))
+                    statementList.sortByDescending { it.date }
 
-                    statementList.forEach { statementList ->
-                        statementListValues.add(
-                            Statement(
-                                statementList.date,
-                                statementList.description,
-                                statementList.title,
-                                statementList.value
-                            )
-                        )
+                    statementList.forEach { statement ->
+                        populateList(statement)
                     }
 
                     state.postValue(onStatementRetrievalSuccess)
                 }
-
                 else -> {
                     state.postValue(onStatementRetrievalError)
                 }
             }
         }
+    }
+
+    private fun populateList(statement: Statement) {
+        statementListValues.add(
+            Statement(
+                statement.date,
+                statement.description,
+                statement.title,
+                statement.value
+            )
+        )
     }
 
     fun getStatementList() = statementListValues
