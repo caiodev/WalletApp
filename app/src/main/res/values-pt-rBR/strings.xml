@@ -8,4 +8,5 @@
     <string name="account_header">Conta</string>
     <string name="balance_header">Saldo</string>
     <string name="statement_header">Recente</string>
+    <string name="unavailable_internet_connection">Verifique sua conexão com a internet</string>
 </resources>

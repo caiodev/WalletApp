@@ -16,9 +16,9 @@ import timber.log.Timber
 
 class LoginViewModel : ViewModel() {
 
+    val state = MutableLiveData<Int>()
     private var userResponse: LoginResponse? = null
     private val loginRepository = LoginRepository()
-    val state = MutableLiveData<Int>()
     private val coroutineContext = Job() + Dispatchers.Default
     private val scope = CoroutineScope(coroutineContext)
 

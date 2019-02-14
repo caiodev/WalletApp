@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.snackbar.Snackbar
 
-abstract class MasterActivity : AppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity() {
 
     protected abstract fun setupView()
     protected abstract fun setupViewModel()

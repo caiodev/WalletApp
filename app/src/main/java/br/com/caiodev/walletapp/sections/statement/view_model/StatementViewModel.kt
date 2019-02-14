@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 
 class StatementViewModel : ViewModel() {
 
-    val state = MutableLiveData<Int>()
+    val state = MutableLiveData<Any>()
     private var statementListValues = mutableListOf<ViewType>()
     private val scope = CoroutineScope(Job() + Dispatchers.Default)
     private val repository = StatementRepository()
@@ -38,7 +38,7 @@ class StatementViewModel : ViewModel() {
                         populateList(statement)
                     }
 
-                    state.postValue(onStatementRetrievalSuccess)
+                    state.postValue(statementListValues)
                 }
                 else -> {
                     state.postValue(onStatementRetrievalError)
@@ -58,10 +58,10 @@ class StatementViewModel : ViewModel() {
         )
     }
 
-    fun getStatementList() = statementListValues
+//    fun getStatementList() = statementListValues
 
     companion object {
-        const val onStatementRetrievalSuccess = 0
+//        const val onStatementRetrievalSuccess = 0
         const val onStatementRetrievalError = 1
     }
 }

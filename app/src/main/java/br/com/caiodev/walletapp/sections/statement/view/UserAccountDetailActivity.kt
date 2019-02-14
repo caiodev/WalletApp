@@ -13,19 +13,22 @@ import br.com.caiodev.walletapp.sections.login.model.LoginResponse
 import br.com.caiodev.walletapp.sections.login.view.LoginActivity
 import br.com.caiodev.walletapp.sections.statement.view_model.StatementViewModel
 import br.com.caiodev.walletapp.sections.statement.view_model.ViewModelDataHelper
+import br.com.caiodev.walletapp.utils.BaseActivity
 import br.com.caiodev.walletapp.utils.HawkIds
-import br.com.caiodev.walletapp.utils.MasterActivity
 import br.com.caiodev.walletapp.utils.TextFormatting
+import br.com.caiodev.walletapp.utils.ViewType
 import br.com.caiodev.walletapp.utils.extensions.deleteHawkValue
 import br.com.caiodev.walletapp.utils.extensions.getHawkValue
+import br.com.caiodev.walletapp.utils.network.NetworkChecking
 import kotlinx.android.synthetic.main.activity_user_account_detail.*
 
-class UserAccountDetailActivity : MasterActivity(), LifecycleOwner {
+class UserAccountDetailActivity : BaseActivity(), LifecycleOwner {
 
     private lateinit var viewModel: StatementViewModel
-    private var viewModelDataHelper: ViewModelDataHelper? = null
+    private val viewModelDataHelper = ViewModelDataHelper()
     private var textFormatting: TextFormatting? = null
     private var statementAdapter: StatementAdapter? = null
+    private val networkChecking = NetworkChecking()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,14 +41,13 @@ class UserAccountDetailActivity : MasterActivity(), LifecycleOwner {
 
     override fun setupView() {
         setViewVisibility(statementListProgressBar, View.VISIBLE)
-        accountOwnerStatementsRecyclerView.setHasFixedSize(true)
+        accountOwnerRecyclerView.setHasFixedSize(true)
         statementListSwipeRefreshLayout.setColorSchemeResources(R.color.purple)
     }
 
     override fun setupViewModel() {
 
         viewModel = ViewModelProviders.of(this).get(StatementViewModel::class.java)
-        viewModelDataHelper = ViewModelDataHelper()
 
         viewModel.getHawkValue<LoginResponse>(HawkIds.userLoginResponseData).userAccount.apply {
             accountOwnerNameTextView.text = name
@@ -62,41 +64,44 @@ class UserAccountDetailActivity : MasterActivity(), LifecycleOwner {
         }
 
         statementListSwipeRefreshLayout.setOnRefreshListener {
-            viewModel.getStatement()
+
+            if (networkChecking.checkInternetConnection(applicationContext)) {
+                viewModel.getStatement()
+            } else showSnackBar(getString(R.string.unavailable_internet_connection))
         }
     }
 
     override fun handleViewModel() {
 
-        viewModel.getStatement()
+        if (networkChecking.checkInternetConnection(applicationContext)) {
 
-        viewModel.state.observe(this, Observer { state ->
+            viewModel.getStatement()
 
-            when (state) {
+            viewModel.state.observe(this, Observer { state ->
 
-                StatementViewModel.onStatementRetrievalSuccess -> {
+                when (state) {
 
-                    viewModelDataHelper?.let {
+                    is MutableList<*> -> {
 
-                        it.getList(viewModel.getStatementList())
+                        viewModelDataHelper.getList(state.filterIsInstance<ViewType>() as MutableList<ViewType>)
 
                         statementAdapter?.let {
-                            runLayoutAnimation(accountOwnerStatementsRecyclerView)
+                            runLayoutAnimation(accountOwnerRecyclerView)
                         } ?: run {
-                            statementAdapter = StatementAdapter(it)
-                            accountOwnerStatementsRecyclerView.adapter = statementAdapter
-                            runLayoutAnimation(accountOwnerStatementsRecyclerView)
+                            statementAdapter = StatementAdapter(viewModelDataHelper)
+                            accountOwnerRecyclerView.adapter = statementAdapter
+                            runLayoutAnimation(accountOwnerRecyclerView)
                         }
                     }
-                }
 
-                StatementViewModel.onStatementRetrievalError -> {
-                    setViewVisibility(statementListProgressBar, View.GONE)
-                    dismissSwipeRefreshLayoutLoading(statementListSwipeRefreshLayout)
-                    showSnackBar("Check your internet connection")
+                    else -> {
+                        setViewVisibility(statementListProgressBar, View.GONE)
+                        dismissSwipeRefreshLayoutLoading(statementListSwipeRefreshLayout)
+                        showSnackBar(getString(R.string.unavailable_internet_connection))
+                    }
                 }
-            }
-        })
+            })
+        } else showSnackBar(getString(R.string.unavailable_internet_connection))
     }
 
     private fun runLayoutAnimation(recyclerView: RecyclerView) {

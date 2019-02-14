@@ -8,18 +8,21 @@ import android.widget.EditText
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import br.com.caiodev.walletapp.R
 import br.com.caiodev.walletapp.sections.login.model.LoginRequest
 import br.com.caiodev.walletapp.sections.login.model.LoginResponse
 import br.com.caiodev.walletapp.sections.login.view_model.LoginViewModel
 import br.com.caiodev.walletapp.sections.statement.view.UserAccountDetailActivity
+import br.com.caiodev.walletapp.utils.BaseActivity
 import br.com.caiodev.walletapp.utils.HawkIds
-import br.com.caiodev.walletapp.utils.MasterActivity
 import br.com.caiodev.walletapp.utils.extensions.*
+import br.com.caiodev.walletapp.utils.network.NetworkChecking
 import kotlinx.android.synthetic.main.activity_login.*
 
-class LoginActivity : MasterActivity(), LifecycleOwner {
+class LoginActivity : BaseActivity(), LifecycleOwner {
 
     private lateinit var viewModel: LoginViewModel
+    private val networkChecking = NetworkChecking()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -111,13 +114,16 @@ class LoginActivity : MasterActivity(), LifecycleOwner {
                                 userLoginEditText.text.toString()
                             )
 
-                            //Make call
-                            viewModel.login(
-                                LoginRequest(
-                                    userLoginEditText.text.toString(),
-                                    userPasswordEditText.text.toString()
+                            //Check if there is internet connection
+                            if (networkChecking.checkInternetConnection(applicationContext)) {
+                                //Make call
+                                viewModel.login(
+                                    LoginRequest(
+                                        userLoginEditText.text.toString(),
+                                        userPasswordEditText.text.toString()
+                                    )
                                 )
-                            )
+                            } else showSnackBar(getString(R.string.unavailable_internet_connection))
                         }
 
                         userPasswordEditText.text.toString().length < 6 -> {
