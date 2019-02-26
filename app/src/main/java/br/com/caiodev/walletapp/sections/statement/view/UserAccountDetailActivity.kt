@@ -55,6 +55,12 @@ class UserAccountDetailActivity : BaseActivity(), LifecycleOwner {
 
             }
 
+            /**
+                There is a little problem with MotionLayout. When animations start,
+                ProgressBar visibility is set to VISIBLE instead of just letting it the way it is
+                even though there is not a code to change its visibility,so a temporary workaround
+                is to set the ProgressBar visibility back to GONE using MotionLayout listeners
+            */
             override fun onTransitionChange(p0: MotionLayout?, p1: Int, p2: Int, p3: Float) {
                 setViewVisibility(statementListProgressBar, View.GONE)
             }
