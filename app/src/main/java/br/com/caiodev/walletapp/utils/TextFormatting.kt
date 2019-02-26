@@ -23,4 +23,6 @@ class TextFormatting {
     }
 
     fun formatDate(date: String): String = dateFormat.format(simpleDateFormat.parse(date))
+
+    fun concatenateStrings(template: String, text: String) = String.format(template, text)
 }

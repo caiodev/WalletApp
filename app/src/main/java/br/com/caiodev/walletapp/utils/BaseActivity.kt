@@ -43,6 +43,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     protected fun dismissSwipeRefreshLayoutLoading(swipeRefreshLayout: SwipeRefreshLayout) {
-        swipeRefreshLayout.isRefreshing = false
+        if (swipeRefreshLayout.isRefreshing)
+            swipeRefreshLayout.isRefreshing = false
     }
 }

@@ -75,7 +75,7 @@ class LoginActivity : BaseActivity(), LifecycleOwner {
             when (state) {
 
                 LoginViewModel.onLoginSuccess -> {
-                    setViewVisibility(loginProgressBar, View.GONE)
+                    setViewVisibility(loginProgressBar, View.INVISIBLE)
                     startActivity(Intent(applicationContext, UserAccountDetailActivity::class.java))
                     finish()
                 }
@@ -115,7 +115,7 @@ class LoginActivity : BaseActivity(), LifecycleOwner {
                             )
 
                             //Check if there is internet connection
-                            if (networkChecking.checkInternetConnection(applicationContext)) {
+                            if (networkChecking.isInternetConnectionAvailable(applicationContext)) {
                                 //Make call
                                 viewModel.login(
                                     LoginRequest(

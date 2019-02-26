@@ -83,4 +83,12 @@
     <dimen name="text_size_32">32sp</dimen>
     <dimen name="text_size_36">36sp</dimen>
 
+    <!--Constant sizes-->
+    <!--Logout image TextView-->
+    <dimen name="logout_image_view_dimensions">@dimen/view_40dp</dimen>
+    <!--Owner name TextView-->
+    <dimen name="account_owner_name_text_view_margin_top">@dimen/margin_8dp</dimen>
+    <!--Statements header-->
+    <dimen name="recent_statements_header_text_view_text_size">@dimen/text_size_22</dimen>
+
 </resources>

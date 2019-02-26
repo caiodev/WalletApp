@@ -12,3 +12,9 @@ fun <T> ViewModel.putValueIntoHawk(key: String, value: T) {
 fun ViewModel.deleteHawkValue(key: String) {
     Hawk.delete(key)
 }
+
+inline fun <reified T> ViewModel.castAttribute(attribute: Any): T {
+    with(attribute as T) {
+        return this
+    }
+}

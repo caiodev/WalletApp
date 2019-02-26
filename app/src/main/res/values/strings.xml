@@ -3,8 +3,8 @@
     <string name="user_login" translatable="false">Email / CPF</string>
     <string name="user_password">Password</string>
     <string name="login_button" translatable="false">Login</string>
-    <string name="account_header">Account</string>
-    <string name="balance_header">Balance</string>
+    <string name="account_header">Account: %1$s</string>
+    <string name="balance_header">Balance: %1$s</string>
     <string name="statement_header">Recent</string>
 
     <!--Error messages-->

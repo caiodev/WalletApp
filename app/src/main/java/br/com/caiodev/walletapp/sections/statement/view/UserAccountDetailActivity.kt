@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
+import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -16,7 +17,7 @@ import br.com.caiodev.walletapp.sections.statement.view_model.ViewModelDataHelpe
 import br.com.caiodev.walletapp.utils.BaseActivity
 import br.com.caiodev.walletapp.utils.HawkIds
 import br.com.caiodev.walletapp.utils.TextFormatting
-import br.com.caiodev.walletapp.utils.ViewType
+import br.com.caiodev.walletapp.utils.extensions.castAttribute
 import br.com.caiodev.walletapp.utils.extensions.deleteHawkValue
 import br.com.caiodev.walletapp.utils.extensions.getHawkValue
 import br.com.caiodev.walletapp.utils.network.NetworkChecking
@@ -26,7 +27,7 @@ class UserAccountDetailActivity : BaseActivity(), LifecycleOwner {
 
     private lateinit var viewModel: StatementViewModel
     private val viewModelDataHelper = ViewModelDataHelper()
-    private var textFormatting: TextFormatting? = null
+    private val textFormatting = TextFormatting()
     private var statementAdapter: StatementAdapter? = null
     private val networkChecking = NetworkChecking()
 
@@ -43,6 +44,25 @@ class UserAccountDetailActivity : BaseActivity(), LifecycleOwner {
         setViewVisibility(statementListProgressBar, View.VISIBLE)
         accountOwnerRecyclerView.setHasFixedSize(true)
         statementListSwipeRefreshLayout.setColorSchemeResources(R.color.purple)
+
+        motionLayout.setTransitionListener(object : MotionLayout.TransitionListener {
+
+            override fun onTransitionTrigger(p0: MotionLayout?, p1: Int, p2: Boolean, p3: Float) {
+
+            }
+
+            override fun onTransitionStarted(p0: MotionLayout?, p1: Int, p2: Int) {
+
+            }
+
+            override fun onTransitionChange(p0: MotionLayout?, p1: Int, p2: Int, p3: Float) {
+                setViewVisibility(statementListProgressBar, View.GONE)
+            }
+
+            override fun onTransitionCompleted(p0: MotionLayout?, p1: Int) {
+                setViewVisibility(statementListProgressBar, View.GONE)
+            }
+        })
     }
 
     override fun setupViewModel() {
@@ -50,11 +70,16 @@ class UserAccountDetailActivity : BaseActivity(), LifecycleOwner {
         viewModel = ViewModelProviders.of(this).get(StatementViewModel::class.java)
 
         viewModel.getHawkValue<LoginResponse>(HawkIds.userLoginResponseData).userAccount.apply {
-            accountOwnerNameTextView.text = name
-            accountNumberTextView.text = bankAccount
 
-            textFormatting = TextFormatting()
-            accountBalanceTextView.text = textFormatting?.formatCurrency(balance)
+            accountOwnerNameTextView.text = name
+
+            accountNumberTextView.text =
+                textFormatting.concatenateStrings(getString(R.string.account_header), bankAccount)
+
+            accountBalanceTextView.text = textFormatting.concatenateStrings(
+                getString(R.string.balance_header),
+                textFormatting.formatCurrency(balance)
+            )
         }
 
         logoutImageView.setOnClickListener {
@@ -64,44 +89,41 @@ class UserAccountDetailActivity : BaseActivity(), LifecycleOwner {
         }
 
         statementListSwipeRefreshLayout.setOnRefreshListener {
-
-            if (networkChecking.checkInternetConnection(applicationContext)) {
+            if (networkChecking.isInternetConnectionAvailable(applicationContext)) {
                 viewModel.getStatement()
-            } else showSnackBar(getString(R.string.unavailable_internet_connection))
+            } else
+                showSnackBar(getString(R.string.unavailable_internet_connection))
+            dismissSwipeRefreshLayoutLoading(statementListSwipeRefreshLayout)
         }
     }
 
     override fun handleViewModel() {
 
-        if (networkChecking.checkInternetConnection(applicationContext)) {
+        //Implement reactive connection detection to recall this method when internet connection is available
+        viewModel.getDataTypeState().observe(this, Observer { state ->
 
-            viewModel.getStatement()
+            when (state) {
 
-            viewModel.state.observe(this, Observer { state ->
+                is MutableList<*> -> {
 
-                when (state) {
+                    viewModelDataHelper.getList(viewModel.castAttribute(state))
 
-                    is MutableList<*> -> {
-
-                        viewModelDataHelper.getList(state.filterIsInstance<ViewType>() as MutableList<ViewType>)
-
-                        statementAdapter?.let {
-                            runLayoutAnimation(accountOwnerRecyclerView)
-                        } ?: run {
-                            statementAdapter = StatementAdapter(viewModelDataHelper)
-                            accountOwnerRecyclerView.adapter = statementAdapter
-                            runLayoutAnimation(accountOwnerRecyclerView)
-                        }
-                    }
-
-                    else -> {
-                        setViewVisibility(statementListProgressBar, View.GONE)
-                        dismissSwipeRefreshLayoutLoading(statementListSwipeRefreshLayout)
-                        showSnackBar(getString(R.string.unavailable_internet_connection))
+                    statementAdapter?.let {
+                        runLayoutAnimation(accountOwnerRecyclerView)
+                    } ?: run {
+                        statementAdapter = StatementAdapter(viewModelDataHelper)
+                        accountOwnerRecyclerView.adapter = statementAdapter
+                        runLayoutAnimation(accountOwnerRecyclerView)
                     }
                 }
-            })
-        } else showSnackBar(getString(R.string.unavailable_internet_connection))
+
+                else -> {
+                    setViewVisibility(statementListProgressBar, View.GONE)
+                    dismissSwipeRefreshLayoutLoading(statementListSwipeRefreshLayout)
+                    showSnackBar(getString(R.string.unavailable_internet_connection))
+                }
+            }
+        })
     }
 
     private fun runLayoutAnimation(recyclerView: RecyclerView) {

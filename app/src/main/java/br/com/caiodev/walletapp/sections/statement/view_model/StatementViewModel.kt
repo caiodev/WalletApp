@@ -15,10 +15,14 @@ import kotlinx.coroutines.launch
 
 class StatementViewModel : ViewModel() {
 
-    val state = MutableLiveData<Any>()
+    private val state = MutableLiveData<Any>()
     private var statementListValues = mutableListOf<ViewType>()
     private val scope = CoroutineScope(Job() + Dispatchers.Default)
     private val repository = StatementRepository()
+
+    init {
+        getStatement()
+    }
 
     fun getStatement() {
 
@@ -58,10 +62,9 @@ class StatementViewModel : ViewModel() {
         )
     }
 
-//    fun getStatementList() = statementListValues
+    fun getDataTypeState() = state
 
     companion object {
-//        const val onStatementRetrievalSuccess = 0
         const val onStatementRetrievalError = 1
     }
 }

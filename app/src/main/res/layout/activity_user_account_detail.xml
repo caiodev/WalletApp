@@ -1,90 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/motionLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:layoutDescription="@xml/user_statements_motion_scene"
     tools:context=".sections.statement.view.UserAccountDetailActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/userDataSection"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <View
+        android:id="@+id/userDataBackground"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="@color/purple"
-        android:paddingBottom="@dimen/margin_8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/accountBalanceTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/accountOwnerNameTextView"
-            style="@style/custom_margin_16dp"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/account_owner_name_text_view_text_size"
-            app:layout_constraintEnd_toStartOf="@+id/logoutImageView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/accountOwnerNameTextView"
+        style="@style/custom_margin_16dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/account_owner_name_text_view_text_size"
+        app:layout_constraintEnd_toStartOf="@+id/logoutImageView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/logoutImageView"
-            style="@style/margin_16dp"
-            android:layout_width="@dimen/logout_image_view_dimensions"
-            android:layout_height="@dimen/logout_image_view_dimensions"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:clickable="true"
-            android:focusable="true"
-            android:src="@drawable/ic_logout"
-            app:layout_constraintBottom_toBottomOf="@+id/accountOwnerNameTextView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/accountOwnerNameTextView"
-            tools:ignore="ContentDescription" />
+    <ImageView
+        android:id="@+id/logoutImageView"
+        style="@style/margin_16dp"
+        android:layout_width="@dimen/logout_image_view_dimensions"
+        android:layout_height="@dimen/logout_image_view_dimensions"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:focusable="true"
+        android:paddingBottom="@dimen/padding_8dp"
+        android:src="@drawable/ic_logout"
+        app:layout_constraintBottom_toBottomOf="@+id/accountOwnerNameTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/accountOwnerNameTextView"
+        tools:ignore="ContentDescription" />
 
-        <TextView
-            android:id="@+id/accountHeaderTextView"
-            style="@style/user_data_layout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/account_header_margin_top"
-            android:text="@string/account_header"
-            android:textSize="@dimen/account_header_text_view_text_size"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/accountOwnerNameTextView"
-            app:layout_constraintTop_toBottomOf="@+id/accountOwnerNameTextView" />
+    <TextView
+        android:id="@+id/accountNumberTextView"
+        style="@style/user_data_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/account_header_text_view_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/accountOwnerNameTextView"
+        app:layout_constraintTop_toBottomOf="@+id/accountOwnerNameTextView" />
 
-        <TextView
-            android:id="@+id/accountNumberTextView"
-            style="@style/user_data_layout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/account_number_text_view_text_size"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/accountHeaderTextView"
-            app:layout_constraintTop_toBottomOf="@+id/accountHeaderTextView" />
-
-        <TextView
-            android:id="@+id/balanceHeaderTextView"
-            style="@style/user_data_layout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_8dp"
-            android:text="@string/balance_header"
-            android:textSize="@dimen/balance_header_text_view_text_size"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/accountNumberTextView"
-            app:layout_constraintTop_toBottomOf="@+id/accountNumberTextView" />
-
-        <TextView
-            android:id="@+id/accountBalanceTextView"
-            style="@style/user_data_layout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/account_balance_text_view_text_size"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/balanceHeaderTextView"
-            app:layout_constraintTop_toBottomOf="@+id/balanceHeaderTextView" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/accountBalanceTextView"
+        style="@style/user_data_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_8dp"
+        android:paddingBottom="@dimen/padding_8dp"
+        android:textSize="@dimen/account_balance_text_view_text_size"
+        app:layout_constraintTop_toBottomOf="@+id/accountNumberTextView"
+        app:layout_constraintStart_toStartOf="@+id/accountNumberTextView"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/statementListSwipeRefreshLayout"
@@ -93,7 +72,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userDataSection">
+        app:layout_constraintTop_toBottomOf="@+id/userDataBackground">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/accountOwnerRecyclerView"
@@ -115,4 +94,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.motion.widget.MotionLayout>

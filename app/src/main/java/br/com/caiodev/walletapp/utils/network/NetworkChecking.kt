@@ -5,7 +5,7 @@ import android.net.ConnectivityManager
 
 class NetworkChecking {
 
-    fun checkInternetConnection(context: Context): Boolean {
+    fun isInternetConnectionAvailable(context: Context): Boolean {
         with(context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager) {
             activeNetworkInfo?.let {
                 return it.isConnected

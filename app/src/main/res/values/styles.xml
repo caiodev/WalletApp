@@ -140,8 +140,8 @@
         <item name="android:fontFamily">@font/notosans_regular</item>
         <item name="android:paddingBottom">@dimen/padding_16dp</item>
         <item name="android:paddingTop">@dimen/padding_16dp</item>
-        <item name="android:textColor">@color/light_gray</item>
-        <item name="android:textColorHint">@color/light_gray</item>
+        <item name="android:textColor">@color/gray_600</item>
+        <item name="android:textColorHint">@color/gray_600</item>
         <item name="android:textSize">@dimen/edit_text_text_sizes</item>
         <item name="android:layout_marginLeft">@dimen/margin_8dp</item>
         <item name="android:layout_marginRight">@dimen/margin_8dp</item>
@@ -178,6 +178,7 @@
         <item name="android:layout_marginRight">@dimen/margin_16dp</item>
         <item name="android:layout_marginEnd">@dimen/margin_16dp</item>
         <item name="android:layout_marginLeft">@dimen/margin_16dp</item>
+        <item name="android:paddingBottom">@dimen/padding_8dp</item>
         <item name="android:layout_marginTop">@dimen/margin_8dp</item>
         <item name="android:fontFamily">@font/notosans_regular</item>
         <item name="android:textColor">@android:color/white</item>

@@ -26,9 +26,7 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name="br.com.caiodev.walletapp.sections.statement.view.UserAccountDetailActivity"
-            android:screenOrientation="portrait" />
+        <activity android:name="br.com.caiodev.walletapp.sections.statement.view.UserAccountDetailActivity" />
 
     </application>
 
