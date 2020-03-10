@@ -4,36 +4,39 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.widget.EditText
-import androidx.lifecycle.LifecycleOwner
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import br.com.caiodev.walletapp.R
 import br.com.caiodev.walletapp.sections.login.model.LoginRequest
-import br.com.caiodev.walletapp.sections.login.model.LoginResponse
-import br.com.caiodev.walletapp.sections.login.view_model.LoginViewModel
-import br.com.caiodev.walletapp.sections.statement.view.UserAccountDetailActivity
-import br.com.caiodev.walletapp.utils.BaseActivity
-import br.com.caiodev.walletapp.utils.HawkIds
+import br.com.caiodev.walletapp.sections.login.model.UserAccount
+import br.com.caiodev.walletapp.sections.login.viewModel.LoginViewModel
+import br.com.caiodev.walletapp.sections.userStatements.view.UserAccountDetailsActivity
+import br.com.caiodev.walletapp.utils.base.ActivityFlow
+import br.com.caiodev.walletapp.utils.dataRecoveryIds.HawkIds
 import br.com.caiodev.walletapp.utils.extensions.*
 import br.com.caiodev.walletapp.utils.network.NetworkChecking
+import br.com.caiodev.walletapp.utils.text.TextValidation
 import kotlinx.android.synthetic.main.activity_login.*
 
-class LoginActivity : BaseActivity(), LifecycleOwner {
+class LoginActivity : AppCompatActivity(), ActivityFlow {
 
-    private lateinit var viewModel: LoginViewModel
-    private val networkChecking = NetworkChecking()
+    private val viewModel: LoginViewModel by lazy {
+        ViewModelProviders.of(this).get(LoginViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(br.com.caiodev.walletapp.R.layout.activity_login)
-
+        setContentView(R.layout.activity_login)
         setupView()
-        setupViewModel()
         handleViewModel()
     }
 
     override fun setupView() {
+
+        viewModel.getHawkValue<String?>(HawkIds.userLoginCredential)?.let { credential ->
+            userLoginEditText.setText(credential)
+        }
 
         userLoginEditText.setOnClickListener {
             userLoginEditText.isCursorVisible = true
@@ -54,21 +57,12 @@ class LoginActivity : BaseActivity(), LifecycleOwner {
         }
     }
 
-    override fun setupViewModel() {
+    override fun handleViewModel() {
 
-        viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
-
-        viewModel.getHawkValue<LoginResponse?>(HawkIds.userLoginResponseData)?.let {
-            startActivity(Intent(applicationContext, UserAccountDetailActivity::class.java))
+        viewModel.getHawkValue<UserAccount?>(HawkIds.userAccountData)?.let {
+            startActivity(Intent(applicationContext, UserAccountDetailsActivity::class.java))
             finish()
         }
-
-        viewModel.getHawkValue<String?>(HawkIds.userLoginCredential)?.let { credential ->
-            userLoginEditText.setText(credential)
-        }
-    }
-
-    override fun handleViewModel() {
 
         viewModel.state.observe(this, Observer { state ->
 
@@ -76,15 +70,29 @@ class LoginActivity : BaseActivity(), LifecycleOwner {
 
                 LoginViewModel.onLoginSuccess -> {
                     setViewVisibility(loginProgressBar, View.INVISIBLE)
-                    startActivity(Intent(applicationContext, UserAccountDetailActivity::class.java))
+                    startActivity(
+                        Intent(
+                            applicationContext,
+                            UserAccountDetailsActivity::class.java
+                        )
+                    )
                     finish()
                 }
 
-                LoginViewModel.onLoginError -> {
-                    setViewVisibility(loginButton, View.VISIBLE)
-                    loginButton.isClickable = true
-                    setXY(loginButton, 1f, 1f)
-                    setXY(loginProgressBar, 0f, 0f)
+                is String -> {
+                    changeViewPropertiesWhenThereIsAnErrorRelatedToTheAPI(state)
+                }
+
+                LoginViewModel.onInternetConnectionError -> {
+                    changeViewPropertiesWhenThereIsAnErrorRelatedToTheAPI(
+                        getString(R.string.unavailable_internet_connection_error)
+                    )
+                }
+
+                LoginViewModel.onAPIConnectionError -> {
+                    changeViewPropertiesWhenThereIsAnErrorRelatedToTheAPI(
+                        getString(R.string.unreachable_api_error)
+                    )
                 }
             }
         })
@@ -94,19 +102,19 @@ class LoginActivity : BaseActivity(), LifecycleOwner {
 
         if (userLoginEditText.text.toString().isNotEmpty()) {
 
-            if (validateEmail(userLoginEditText.text.toString()) ||
-                validateCPF(userLoginEditText.text.toString())
+            if (TextValidation.validateEmail(userLoginEditText.text.toString()) ||
+                TextValidation.validateCPF(userLoginEditText.text.toString())
             ) {
 
                 if (userPasswordEditText.text.toString().isNotEmpty()) {
 
                     when {
 
-                        validatePassword(userPasswordEditText.text.toString()) -> {
+                        TextValidation.validatePassword(userPasswordEditText.text.toString()) -> {
 
                             loginButton.isClickable = false
-                            setXY(loginButton, 0f, 0f)
-                            setXY(loginProgressBar, 1f, 1f)
+                            setViewXYScales(loginButton, 0f, 0f)
+                            setViewXYScales(loginProgressBar, 1f, 1f)
 
                             //Save Email or CPF on Hawk
                             viewModel.putValueIntoHawk(
@@ -115,7 +123,7 @@ class LoginActivity : BaseActivity(), LifecycleOwner {
                             )
 
                             //Check if there is internet connection
-                            if (networkChecking.isInternetConnectionAvailable(applicationContext)) {
+                            if (NetworkChecking.isInternetConnectionAvailable(applicationContext)) {
                                 //Make call
                                 viewModel.login(
                                     LoginRequest(
@@ -123,46 +131,47 @@ class LoginActivity : BaseActivity(), LifecycleOwner {
                                         userPasswordEditText.text.toString()
                                     )
                                 )
-                            } else showSnackBar(getString(R.string.unavailable_internet_connection))
+                            } else showSnackBar(
+                                this,
+                                getString(R.string.unavailable_internet_connection_error)
+                            )
                         }
 
                         userPasswordEditText.text.toString().length < 6 -> {
                             setEditTextError(
                                 userPasswordEditText,
-                                getString(br.com.caiodev.walletapp.R.string.password_length_error)
+                                getString(R.string.password_length_error)
                             )
                         }
 
                         else -> {
                             setEditTextError(
                                 userPasswordEditText,
-                                getString(br.com.caiodev.walletapp.R.string.password_regex_error)
+                                getString(R.string.password_regex_error)
                             )
                         }
                     }
 
                 } else setEditTextError(
                     userPasswordEditText,
-                    getString(br.com.caiodev.walletapp.R.string.empty_field_error)
+                    getString(R.string.empty_field_error)
                 )
 
             } else setEditTextError(
                 userLoginEditText,
-                getString(br.com.caiodev.walletapp.R.string.invalid_email_or_cpf_error)
+                getString(R.string.invalid_email_or_cpf_error)
             )
 
         } else setEditTextError(
             userLoginEditText,
-            getString(br.com.caiodev.walletapp.R.string.empty_field_error)
+            getString(R.string.empty_field_error)
         )
     }
 
-    private fun setXY(view: View, x: Float, y: Float) {
-        view.scaleX = x
-        view.scaleY = y
-    }
-
-    private fun setEditTextError(editText: EditText, errorMessage: String) {
-        editText.error = errorMessage
+    private fun changeViewPropertiesWhenThereIsAnErrorRelatedToTheAPI(snackBarText: String) {
+        loginButton.isClickable = true
+        setViewXYScales(loginButton, 1f, 1f)
+        setViewXYScales(loginProgressBar, 0f, 0f)
+        showSnackBar(this, snackBarText)
     }
 }

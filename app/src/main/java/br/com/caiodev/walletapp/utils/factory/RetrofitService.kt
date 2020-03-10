@@ -10,27 +10,52 @@ import java.util.concurrent.TimeUnit
 
 class RetrofitService {
 
-    val baseUrl = "https://bank-app-test.herokuapp.com/api/"
+    @PublishedApi
+    internal val baseUrl = "https://bank-app-test.herokuapp.com/api/"
     private val timberTag = "OkHttpLogging"
+    @PublishedApi
+    internal var retrofitBuilder: Any? = null
+    private var okHttpClient: OkHttpClient? = null
 
-    inline fun <reified T> createService() =
+    @PublishedApi
+    internal inline fun <reified T> getRetrofitService(): T {
+        retrofitBuilder?.let { retrofitService ->
+            return retrofitService as T
+        } ?: run {
+            retrofitBuilder = createRetrofitService<T>()
+            return retrofitBuilder as T
+        }
+    }
+
+    @PublishedApi
+    internal inline fun <reified T> createRetrofitService() =
         Retrofit.Builder()
             .baseUrl(baseUrl)
-            .client(createAndDeliverHttpClient())
+            .client(getOkHttpClient())
             .addConverterFactory(MoshiConverterFactory.create())
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .build().create(T::class.java) as T
 
-    fun createAndDeliverHttpClient() =
+    @PublishedApi
+    internal fun getOkHttpClient(): OkHttpClient {
+        okHttpClient?.let { client ->
+            return client
+        } ?: run {
+            okHttpClient = createOkHttpClient()
+            return okHttpClient as OkHttpClient
+        }
+    }
+
+    private fun createOkHttpClient() =
         OkHttpClient.Builder()
             .addInterceptor(
                 HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { message ->
                     Timber.tag(timberTag).d(message)
                 }).setLevel(HttpLoggingInterceptor.Level.BODY)
             )
-            .connectTimeout(1L, TimeUnit.MINUTES)
-            .readTimeout(1L, TimeUnit.MINUTES)
-            .writeTimeout(1L, TimeUnit.MINUTES)
+            .connectTimeout(60, TimeUnit.SECONDS)
+            .readTimeout(60, TimeUnit.SECONDS)
+            .writeTimeout(60, TimeUnit.SECONDS)
             .hostnameVerifier { _, _ -> true }
-            .build() as OkHttpClient
+            .build()
 }

@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name=".utils.App"
+        android:name=".utils.init.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -26,7 +26,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="br.com.caiodev.walletapp.sections.statement.view.UserAccountDetailActivity" />
+        <activity android:name="br.com.caiodev.walletapp.sections.userStatements.view.UserAccountDetailsActivity" />
 
     </application>
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    style="@style/margin_16dp"
+    style="@style/margin_8dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/recycler_item_view_layout_margin_top"
@@ -11,8 +11,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/padding_8dp"
-        android:clipToPadding="false">
+        android:clipToPadding="false"
+        android:padding="@dimen/padding_8dp">
 
         <TextView
             android:id="@+id/transactionTypeHeaderTextView"
@@ -42,7 +42,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/payment_type_text_view_margin_top"
             android:layout_marginEnd="@dimen/margin_4dp"
-            android:layout_marginRight="@dimen/margin_4dp"
             android:textColor="@android:color/black"
             android:textSize="@dimen/text_size_20"
             app:layout_constraintEnd_toStartOf="@+id/ownerAccountBalanceTextView"

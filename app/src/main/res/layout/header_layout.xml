@@ -6,7 +6,7 @@
 
     <TextView
         android:id="@+id/headerType"
-        style="@style/margin_16dp_left_padding_top"
+        style="@style/margin_8dp_left_padding_top"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"

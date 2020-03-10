@@ -6,19 +6,20 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "br.com.caiodev.walletapp"
-        minSdkVersion 19
+        minSdkVersion 18 //Minimum API to be able to use MotionLayout
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     buildTypes {
-
-        debug {
-
-        }
-
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -32,11 +33,11 @@ dependencies {
 
     //AndroidX AppCompat
     implementation "androidx.appcompat:appcompat:$appCompat"
-    implementation "androidx.core:core:$core"
+    implementation "androidx.core:core:$androidXCore"
 
     //Ktx
-    implementation "androidx.core:core-ktx:$core"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewModel"
+    implementation "androidx.core:core-ktx:$ktxCore"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$ktxViewModel"
 
     //Hawk
     implementation "com.orhanobut:hawk:$hawk"
@@ -53,8 +54,8 @@ dependencies {
     releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanary"
 
     //Lifecycle section
-    implementation "androidx.lifecycle:lifecycle-viewmodel:$androidLifecycle"
-    implementation "androidx.lifecycle:lifecycle-extensions:$androidLifecycle"
+    implementation "androidx.lifecycle:lifecycle-viewmodel:$viewModel"
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleExtensions"
 
     //Logging section
     implementation "com.squareup.okhttp3:logging-interceptor:$loggingInterceptor"
@@ -69,8 +70,8 @@ dependencies {
     implementation "androidx.room:room-coroutines:$room"
 
     //Test section
-    androidTestImplementation "androidx.test:core:$junit"
+    androidTestImplementation "androidx.test:core:$testCore"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso"
     androidTestImplementation "androidx.test.ext:junit:$junit"
     androidTestImplementation "androidx.test:runner:$testRunner"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso"
 }

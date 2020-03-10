@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layoutDescription="@xml/user_statements_motion_scene"
-    tools:context=".sections.statement.view.UserAccountDetailActivity">
+    tools:context=".sections.userStatements.view.UserAccountDetailsActivity">
 
     <View
         android:id="@+id/userDataBackground"
@@ -20,7 +20,7 @@
 
     <TextView
         android:id="@+id/accountOwnerNameTextView"
-        style="@style/custom_margin_16dp"
+        style="@style/custom_margin_8dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="@dimen/account_owner_name_text_view_text_size"
@@ -30,17 +30,16 @@
 
     <ImageView
         android:id="@+id/logoutImageView"
-        style="@style/margin_16dp"
         android:layout_width="@dimen/logout_image_view_dimensions"
         android:layout_height="@dimen/logout_image_view_dimensions"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:clickable="true"
         android:focusable="true"
         android:paddingBottom="@dimen/padding_8dp"
-        android:src="@drawable/ic_logout"
         app:layout_constraintBottom_toBottomOf="@+id/accountOwnerNameTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/accountOwnerNameTextView"
+        app:srcCompat="@drawable/ic_logout"
         tools:ignore="ContentDescription" />
 
     <TextView
@@ -61,9 +60,9 @@
         android:layout_marginTop="@dimen/margin_8dp"
         android:paddingBottom="@dimen/padding_8dp"
         android:textSize="@dimen/account_balance_text_view_text_size"
-        app:layout_constraintTop_toBottomOf="@+id/accountNumberTextView"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/accountNumberTextView"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/accountNumberTextView" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/statementListSwipeRefreshLayout"
@@ -83,6 +82,18 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <ImageView
+        android:id="@+id/offlineImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleX="0"
+        android:scaleY="0"
+        app:layout_constraintBottom_toBottomOf="@+id/statementListSwipeRefreshLayout"
+        app:layout_constraintEnd_toEndOf="@+id/statementListSwipeRefreshLayout"
+        app:layout_constraintStart_toStartOf="@+id/statementListSwipeRefreshLayout"
+        app:layout_constraintTop_toTopOf="@+id/statementListSwipeRefreshLayout"
+        tools:ignore="ContentDescription" />
 
     <ProgressBar
         android:id="@+id/statementListProgressBar"

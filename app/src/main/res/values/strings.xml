@@ -3,15 +3,15 @@
     <string name="user_login" translatable="false">Email / CPF</string>
     <string name="user_password">Password</string>
     <string name="login_button" translatable="false">Login</string>
-    <string name="account_header">Account: %1$s</string>
-    <string name="balance_header">Balance: %1$s</string>
-    <string name="statement_header">Recent</string>
+    <string name="account_header">Account: %s</string>
+    <string name="balance_header">Balance: %s</string>
 
-    <!--Error messages-->
+    <!--Connection Error messages-->
     <string name="empty_field_error">Empty field</string>
     <string name="invalid_email_or_cpf_error">Either your CPF or email are invalid</string>
     <string name="password_length_error">Password has less than 6 characters</string>
     <string name="password_regex_error">Your password doesn\'t have an uppercase letter, a special character or a number </string>
-    <string name="unavailable_internet_connection">Check your internet connection</string>
+    <string name="unavailable_internet_connection_error">Check your internet connection</string>
+    <string name="unreachable_api_error">We couldn\'t access our servers now. Wait a moment and try again</string>
 
 </resources>
