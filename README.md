@@ -1,6 +1,5 @@
 # WalletApp
-It's an e-Wallet prototype(The API this app consumes data from is a third-party one so, parts of it will be in Brazilian portuguese). I will soon create my own API
-
+It's an e-Wallet prototype
 License
 =======
 
